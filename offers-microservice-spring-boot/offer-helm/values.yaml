@@ -2,7 +2,7 @@
 replicaCount: 1
 
 image:
-  repository: deekshithsn/offer
+  repository: pteke20/offer:v1
   pullPolicy: IfNotPresent
 
 service:
@@ -12,4 +12,4 @@ service:
 
 container:
   name: offer-ui
-  
+

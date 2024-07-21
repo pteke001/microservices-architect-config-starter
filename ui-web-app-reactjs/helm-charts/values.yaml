@@ -1,15 +1,13 @@
-
 replicaCount: 1
 
 image:
   repository: pteke20/react-ui:v1
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
 
 service:
   type: NodePort
   port: 8080
+  name: ui
   targetport: 8080
 
 containers:

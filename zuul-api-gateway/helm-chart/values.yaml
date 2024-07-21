@@ -1,8 +1,7 @@
-
 replicaCount: 1
 
 image:
-  repository: deekshithsn/zuul
+  repository: pteke20/zuul:v1
   pullPolicy: IfNotPresent
 
 service:

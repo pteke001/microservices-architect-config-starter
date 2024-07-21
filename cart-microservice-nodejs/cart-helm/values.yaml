@@ -1,9 +1,9 @@
 replicaCount: 1
 
 image:
-  repository: deekshithsn/cart
+  repository: pteke20/cart:v1
   pullPolicy: IfNotPresent
-  
+
 service:
   type: ClusterIP
   port: 1004

@@ -1,0 +1,63 @@
+---
+# Source: zuul/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    helm.sh/chart: zuul-0.1.0
+    app.kubernetes.io/name: zuul
+    app.kubernetes.io/instance: test2
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  name: test2
+spec:
+  ports:
+  - name: "http"
+    port: 9999
+    targetPort: 9999
+    nodePort: 32470
+  selector:
+    
+    app.kubernetes.io/name: zuul
+    app.kubernetes.io/instance: test2
+  type: NodePort
+---
+# Source: zuul/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test2
+  labels:
+    helm.sh/chart: zuul-0.1.0
+    app.kubernetes.io/name: zuul
+    app.kubernetes.io/instance: test2
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: zuul
+      app.kubernetes.io/instance: test2
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: zuul
+        app.kubernetes.io/instance: test2
+    spec:
+      containers:
+        - name: zuul-api-gateway
+          image: "pteke20/zuul:v1"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9999
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - react-ui
+            topologyKey: kubernetes.io/hostname
